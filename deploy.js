@@ -22,7 +22,7 @@ function installPM2() {
 // transfers local project to the remote server
 function transferProjectToRemote(failed, successful) {
   return ssh.putDirectory(
-    '../hackathon-starter-master',
+    '../hackathon-starter',
     '/home/ubuntu/hackathon-starter-temp',
     {
       recursive: true,
@@ -65,7 +65,7 @@ function stopRemoteServices() {
 // updates the project source on the server
 function updateRemoteApp() {
   return ssh.execCommand(
-    'cp -r hackathon-starter-temp/* hackathon-starter-master/ && rm -rf hackathon-starter-temp', {
+    'cp -r hackathon-starter-temp/* hackathon-starter/ && rm -rf hackathon-starter-temp', {
       cwd: '/home/ubuntu'
   });
 }
@@ -73,7 +73,7 @@ function updateRemoteApp() {
 // restart mongodb and node services on the remote server
 function restartRemoteServices() {
   return ssh.execCommand(
-    'cd hackathon-starter-master && sudo service mongod start && pm2 start app.js', {
+    'cd hackathon-starter && sudo service mongod start && pm2 start app.js', {
       cwd: '/home/ubuntu'
   });
 }
@@ -85,7 +85,7 @@ function sshConnect() {
   ssh
     .connect({
       // TODO: ADD YOUR IP ADDRESS BELOW (e.g. '12.34.5.67')
-      host: '18.222.153.201',
+      host: '18.224.179.10',
       username: 'ubuntu',
       privateKey: 'hs-key.pem'
     })
